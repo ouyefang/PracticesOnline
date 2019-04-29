@@ -1,8 +1,12 @@
 package net.lzzy.practicesonline.activities.models;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 
-import java.util.List;
+import net.lzzy.practicesonline.activities.utils.AppUtils;
+import net.lzzy.practicesonline.activities.utils.DateTimeUtils;
+
+import java.util.Date;
 
 /**
  *
@@ -15,42 +19,29 @@ public class UserCookies {
     private  static final String ID_SPLITTER=",";
     private  static final int FLAG_COMMIT_Y=1;
     private  static final int FLAG_COMMIT_N=0;
-    private  static final UserCookies OUR_INSTANCE=new UserCookies();
+    private  static final UserCookies INSTANCE =new UserCookies();
     private SharedPreferences spCommit;
     private SharedPreferences spTime;
     private SharedPreferences spChecked;
     private  SharedPreferences spPosition;
     private  SharedPreferences spReadCount;
     private  UserCookies(){
+        spTime= AppUtils.getContext()
+                .getSharedPreferences("refresh_time", Context.MODE_PRIVATE);
 
     }
-    public UserCookies getOurInstance(){
-        return  null;
+    public static UserCookies getInstance(){
+        return  INSTANCE;
     }
-    public   boolean isPracticeCommitted(String practice){
-        return  false;
-    }
-    public void commitPractice(String practice){
+    public  void  updateLastRefreshTime(){
+        String time= DateTimeUtils.DATE_TIME_FORMAT.format(new Date());
+        spTime.edit().putString(KEY_TIME,time).apply();
 
     }
-    public String getLastRefresgTime(){
+
+    public String getLastRefreshTime(){
         return null;
     }
-    public  void  changeOptionState(Option option,boolean b,boolean c){
 
-    }
-    private  String trunkSplittected(String s){
-        return  null;
-
-    }
-    public boolean isOptionSelected(Option option){
-        return  false;
-    }
-    public List<QuestionResult> getResultFromCookies(List<Question> questions){
-        return  null;
-    }
-
-    private class QuestionResult {
-    }
 
 }

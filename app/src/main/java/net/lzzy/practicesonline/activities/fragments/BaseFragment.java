@@ -22,14 +22,15 @@ import java.util.Objects;
  * Description:
  */
 public abstract class BaseFragment extends Fragment {
-    public BaseFragment(){}
+    public BaseFragment() {
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(getLayoutRes(),container,false);
+        return inflater.inflate(getLayoutRes(), container, false);
     }
 
     @Override
@@ -38,27 +39,28 @@ public abstract class BaseFragment extends Fragment {
     }
 
 
-
     @Nullable
     @Override
-    public Context getContext(){
-        Context context=getActivity();
-        if (context==null){
-            context= AppUtils.getContext();
+    public Context getContext() {
+        Context context = getActivity();
+        if (context == null) {
+            context = AppUtils.getContext();
 
 
         }
         return context;
     }
-/**
- * 执行onCreateView中初始化视图组件、填充数据的任务
- **/
+
+    /**
+     * 执行onCreateView中初始化视图组件、填充数据的任务
+     **/
     protected abstract void populate();
 
-    public  abstract  int getLayoutRes();
+    public abstract int getLayoutRes();
 
-    <T extends View>T find(@IdRes int id){
+    <T extends View> T find(@IdRes int id) {
         return Objects.requireNonNull(getView()).findViewById(id);
     }
-    public abstract  void  search(String kw);
+
+    public abstract void search(String kw);
 }

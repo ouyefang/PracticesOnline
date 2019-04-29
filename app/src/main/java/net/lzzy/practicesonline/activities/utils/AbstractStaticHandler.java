@@ -26,5 +26,4 @@ public abstract class AbstractStaticHandler<T> extends Handler {
      *
      *
      * **/
-    public  abstract  void  handleMessage(Message msg,T t);
-}
+    public  abstract  void  handleMessage(Message msg,T t);}

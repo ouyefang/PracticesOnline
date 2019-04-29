@@ -29,10 +29,11 @@ public class PracticeFactory {
         return repository.get();
     }
 
+
     public Practice getById(String id){
         return  repository.getById(id);
     }
-    public  List<Practice> searchPractices(String kw){
+    public  List<Practice> search(String kw){
         try {
             return  repository.getByKeyword(kw,new  String[]
                     {Practice.COL_NAME,Practice.COL_OUTLINES},false);
@@ -55,7 +56,7 @@ public class PracticeFactory {
         }
     }
 
-    public  boolean addPractice(Practice practice){
+    public  boolean add(Practice practice){
 
         if (isPracticeInDb(practice)){
             return  false;
@@ -116,6 +117,8 @@ public class PracticeFactory {
             return false;
         }
     }
+
+
 
 
 }

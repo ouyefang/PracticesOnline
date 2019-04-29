@@ -1,7 +1,4 @@
 package net.lzzy.practicesonline.activities.models;
-
-import android.view.LayoutInflater;
-
 import net.lzzy.practicesonline.activities.constants.DbConstants;
 import net.lzzy.practicesonline.activities.utils.AppUtils;
 import net.lzzy.sqllib.SqlRepository;
