@@ -412,7 +412,7 @@ public class PracticesFragment extends BaseFragment {
     }
 
 
-    private  void initViews(){
+    private  void initViews() {
         lv=find(R.id.fragment_practice_tv_lv);
         TextView tvNone=find(R.id.fragment_practice_tv_none);
         lv.setEmptyView(tvNone);

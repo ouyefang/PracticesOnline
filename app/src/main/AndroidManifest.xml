@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.activities.QuestionActivity"></activity>
+       <activity android:name=".activities.activities.ResultActivity"/>
         <activity android:name=".activities.activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +25,7 @@
             </intent-filter>
         </activity>
       <service android:name=".activities.network.DetectWebService"/>
+
         <activity android:name=".activities.activities.PracticesActivity" />
 
 

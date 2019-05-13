@@ -27,8 +27,8 @@ import net.lzzy.practicesonline.activities.utils.ViewUtils;
 public class PracticesActivity extends BaseActivity implements PracticesFragment.PracticeSelectedListener {
     public static final String EXTRA_LOCAL_COUNT = "localCount";
     private ServiceConnection connection;
-    private static final String EXTRA_PRACTICE_ID = "extraPracticeId";
-    private static final String EXTRA_API_ID = "extraApiId";
+    public static final String EXTRA_PRACTICE_ID = "extraPracticeId";
+    public static final String EXTRA_API_ID = "extraApiId";
     private boolean refresh=false;
 
     @Override

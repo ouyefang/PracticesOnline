@@ -53,8 +53,16 @@ public class FavoriteFactory {
         }
 
     }
-    public  void  cancelStarQuestion(UUID questionId){
+    public void  starQuestion(UUID questionId){
+        Favorite favorite=getByQuestion(questionId.toString());
+        if (favorite==null){
+            favorite=new Favorite();
+            favorite.setQuestionId(questionId);
+            repository.insert(favorite);
+        }
+    }
 
+    public  void  cancelStarQuestion(UUID questionId){
         Favorite favorite=getByQuestion(questionId.toString());
         if (favorite!=null){
             repository.delete(favorite);

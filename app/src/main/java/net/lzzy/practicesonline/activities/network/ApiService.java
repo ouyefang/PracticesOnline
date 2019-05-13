@@ -122,20 +122,22 @@ public class ApiService {
         public   static  <T> T cast(Object obj){
         return  (T) obj;
         }
-        public  static  int okPost(String address,JSONObject json) throws IOException {
-            RequestBody body=RequestBody.create(MediaType.parse("application/json charset=utf-8"),
-                    json.toString());
-            Request request =new Request.Builder()
-                    .url(address)
-                    .post(body)
-                    .build();
-            try (Response response=CLIENT.newCall(request).execute()){
-                return response.code();
 
-            }
+    public static int okPost(String address, JSONObject json) throws IOException {
+        RequestBody body =  RequestBody.create(MediaType.parse("application/json; charset=utf-8")
+                , json.toString());
+        Request request = new Request.Builder()
+                .url(address)
+                .post(body)
+                .build();
 
+        try (Response response = CLIENT.newCall(request).execute()) {
+            return response.code();
         }
-        public  static  String okRequest(String address,JSONObject json) throws IOException {
+    }
+
+
+    public  static  String okRequest(String address,JSONObject json) throws IOException {
             RequestBody body=RequestBody.create(MediaType.parse("application/json charset=utf-8"),
                     json.toString());
             Request request =new Request.Builder()
