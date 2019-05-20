@@ -11,24 +11,32 @@ import androidx.fragment.app.FragmentManager;
  import net.lzzy.practicesonline.activities.utils.AppUtils;
 
 /**
- * Created by lzzy_gxy on 2019/4/11.
+ *
+ * @author lzzy_gxy
+ * @date 2019/4/11
  * Description:
  */
 public abstract class BaseActivity extends AppCompatActivity {
     private Fragment fragment;
+    private FragmentManager manager;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(getLayoutRes());
         AppUtils.addActivity(this);
-        FragmentManager manager=getSupportFragmentManager();
-       fragment=manager.findFragmentById(getContainerId());
+        manager = getSupportFragmentManager();
+       fragment= manager.findFragmentById(getContainerId());
         if (fragment==null){
             fragment=createFragment();
             manager.beginTransaction().add(getContainerId(),fragment).commit();
         }
 
+    }
+
+    protected FragmentManager getManager(){
+        return manager;
     }
 
     protected  Fragment getFragment(){

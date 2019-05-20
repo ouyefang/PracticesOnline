@@ -10,7 +10,6 @@ import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,7 +43,7 @@ import static net.lzzy.practicesonline.activities.activities.PracticesActivity.E
 public class QuestionActivity extends AppCompatActivity {
 
 
-    private static final String EXTRA_RESULT = "extraResult";
+    public static final String EXTRA_RESULT = "extraResult";
     private static final int REQUEST_CODE_RESULT = 0;
     private String practiceId;
     private int apiId;
@@ -113,8 +112,11 @@ public class QuestionActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //todo:返回查看数据
+        if (resultCode==ResultActivity.RESULT_CODE&&requestCode==REQUEST_CODE_RESULT) {
+            pager.setCurrentItem(data.getIntExtra(ResultActivity.POSITION,-1));
+        }
     }
+
 
     //region提交成绩
 
