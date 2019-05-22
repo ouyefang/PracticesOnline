@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import net.lzzy.practicesonline.R;
 import net.lzzy.practicesonline.activities.fragments.QuestionFragment;
+import net.lzzy.practicesonline.activities.models.FavoriteFactory;
 import net.lzzy.practicesonline.activities.models.Question;
 import net.lzzy.practicesonline.activities.models.QuestionFactory;
 import net.lzzy.practicesonline.activities.models.UserCookies;
@@ -34,9 +35,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.lzzy.practicesonline.activities.activities.PracticesActivity.EXTRA_PRACTICE_ID;
-
-
 /**
  * @author Administrator
  */
@@ -44,7 +42,8 @@ public class QuestionActivity extends AppCompatActivity {
 
 
     public static final String EXTRA_RESULT = "extraResult";
-    private static final int REQUEST_CODE_RESULT = 0;
+    public static final String EXTRA_PRACTICE_ID = "extraPracticeId";
+    public static final int REQUEST_CODE_RESULT = 2;
     private String practiceId;
     private int apiId;
     private List<Question> questions;
@@ -115,6 +114,29 @@ public class QuestionActivity extends AppCompatActivity {
         if (resultCode==ResultActivity.RESULT_CODE&&requestCode==REQUEST_CODE_RESULT) {
             pager.setCurrentItem(data.getIntExtra(ResultActivity.POSITION,-1));
         }
+        if (requestCode==ResultActivity.RESULT_CODE_PRACTICE && resultCode==REQUEST_CODE_RESULT&&data!=null){
+            String practiceId=data.getStringExtra(ResultActivity.PRACTICES_ID);
+            if (!practiceId.isEmpty()){
+                List<Question> questionList=new ArrayList<>();
+                FavoriteFactory factory=FavoriteFactory.getInstance();
+                for (Question question:QuestionFactory.getInstance().getByPractice(practiceId)){
+                    if (factory.isQuestionStarred(question.getId().toString())){
+                        questionList.add(question);
+                    }
+                }
+                questions.clear();
+                questions.addAll(questionList);
+                initDots();
+                adapter.notifyDataSetChanged();
+                if (questions.size()>0){
+                    pager.setCurrentItem(0);
+                    refreshDots(0);
+                }
+
+            }
+
+        }
+
     }
 
 
@@ -235,7 +257,7 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     private void retrieveDate() {
-        practiceId=getIntent().getStringExtra(PracticesActivity.EXTRA_PRACTICE_ID);
+        practiceId=getIntent().getStringExtra(QuestionActivity.EXTRA_PRACTICE_ID);
         apiId=getIntent().getIntExtra(PracticesActivity.EXTRA_API_ID,-1);
         questions= QuestionFactory.getInstance().getByPractice(practiceId);
         isCommitted= UserCookies.getInstance().isPracticeCommitted(practiceId);
