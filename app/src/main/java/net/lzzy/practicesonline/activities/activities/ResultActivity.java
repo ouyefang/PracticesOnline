@@ -2,6 +2,7 @@ package net.lzzy.practicesonline.activities.activities;
 
 import android.content.Intent;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import net.lzzy.practicesonline.R;
@@ -22,7 +23,13 @@ public class ResultActivity extends BaseActivity implements GridFragment.OnGridS
 {
     public static final String POSITION="position";
     public static final int RESULT_CODE=1;
+    public static final String PRACTICES_ID="practiceId";
+    public static final int RESULT_CODE_PRACTICE=2;
     private List<QuestionResult> results;
+     String practiceId;
+
+
+
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_result;
@@ -60,5 +67,25 @@ public class ResultActivity extends BaseActivity implements GridFragment.OnGridS
         getManager().beginTransaction().replace(R.id.activity_result_container,
                 ChartFragment.newInstance(results)).commit();
 
+    }
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setMessage("确定要返回题目吗？")
+                .setNeutralButton("退出",(dialog, which) -> {
+
+                    finish();
+                })
+                .setNegativeButton("章节列表",(dialog, which) -> {
+                    startActivity(new Intent(this,PracticesActivity.class));
+                    finish();
+                })
+                .setPositiveButton("查看收藏",(dialog, which) ->{
+                    Intent intent=new Intent(this,QuestionActivity.class);
+                    intent.putExtra(PRACTICES_ID,practiceId);
+                    setResult(RESULT_CODE_PRACTICE,intent);
+                    finish();
+                } )
+                .show();
     }
 }
